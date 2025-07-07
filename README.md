@@ -128,6 +128,6 @@ Loss / Optimizer / Hyperparameters:
 
 ## Citations
 
-* Dataset: Banerjee, Sourav. The True Cost of Fast Fashion, Kaggle. https://www.kaggle.com/datasets/iamsouravbanerjee/the-true-cost-of-fast-fashion
+* Dataset: Banerjee, Sourav. The True Cost of Fast Fashion, Kaggle. (https://www.kaggle.com/datasets/khushikyad001/the-true-cost-of-fast-fashion-impact)
 
 
