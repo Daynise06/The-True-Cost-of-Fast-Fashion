@@ -1,3 +1,5 @@
+![](UTA-DataScience-Logo.png)
+
 # The True Cost of Fast Fashion Impact
 
 * **One Sentence Summary** Ex: This repository holds an attempt to apply LSTMs to Stock Market using data from
