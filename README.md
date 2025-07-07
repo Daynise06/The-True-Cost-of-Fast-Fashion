@@ -40,7 +40,7 @@
 * Histograms showed skewed distributions in CO₂ and water usage
 * Boxplots showed brand-level differences in sustainability scores
 
-Show a few visualization of the data and say a few words about what you see.
+
 
 ### Problem Formulation
 
