@@ -2,53 +2,65 @@
 
 # The True Cost of Fast Fashion Impact
 
-* **One Sentence Summary** Ex: This repository holds an attempt to apply LSTMs to Stock Market using data from
-"Get Rich" Kaggle challenge (provide link). 
+* **One Sentence Summary** This repository holds an attempt to build a regression model that predicts sustainability scores of fashion items using environmental and labor-impact features from the True Cost of Fast Fashion Impact Kaggle dataset.
 
 ## Overview
 
 * This section could contain a short paragraph which include the following:
-  * **Definition of the tasks / challenge**  Ex: The task, as defined by the Kaggle challenge is to use a time series of 12 features, sampled daily for 1 month, to predict the next day's price of a stock.
-  * **Your approach** Ex: The approach in this repository formulates the problem as regression task, using deep recurrent neural networks as the model with the full time series of features as input. We compared the performance of 3 different network architectures.
-  * **Summary of the performance achieved** Ex: Our best model was able to predict the next day stock price within 23%, 90% of the time. At the time of writing, the best performance on Kaggle of this metric is 18%.
+  * **Definition of the tasks / challenge**  The challenge is to use item-level fashion data to predict a sustainability score based on factors like CO₂ emissions, water usage, waste generation, and labor practices. The dataset helps quantify environmental and ethical impacts of clothing products.
+  * **Your approach** The approach formulates the problem as a supervised regression task. We trained and compared multiple models including Linear Regression, Random Forest, and XGBoost to predict sustainability scores using environmental impact data and product metadata.
+  * **Summary of the performance achieved** Our best-performing model (XGBoost) achieved an R² of 0.82, with MAE and RMSE significantly lower than baseline linear models, suggesting strong potential for identifying high- and low-sustainability items.
+
 
 ## Summary of Workdone
-
-Include only the sections that are relevant an appropriate.
 
 ### Data
 
 * Data:
-  * Type: For example
-    * Input: medical images (1000x1000 pixel jpegs), CSV file: image filename -> diagnosis
-    * Input: CSV file of features, output: signal/background flag in 1st column.
-  * Size: How much data?
-  * Instances (Train, Test, Validation Split): how many data points? Ex: 1000 patients for training, 200 for testing, none for validation
+  * Type: Input: CSV file with environmental and production-related features (e.g., emissions, water, price, labor indicators)
+  * Output: Numeric sustainability score (continuous variable)
+    
+* Size:
+  * Total size: ~300 KB
+  * ~1,000 rows (fashion items)
+    
+* Instances (Train, Test, Validation Split):
+  * 70% training
+  * 15% validation
+  * 15% test
 
 #### Preprocessing / Clean up
 
-* Describe any manipulations you performed to the data.
+* Removed duplicates and rows with missing sustainability scores
+* Converted categorical features (e.g., brand, product type) using one-hot encoding
+* Scaled numeric features (CO₂, water, waste, price) using StandardScaler
+* Checked for outliers using z-scores
 
 #### Data Visualization
+* Histograms showed skewed distributions in CO₂ and water usage
+* Boxplots showed brand-level differences in sustainability scores
 
 Show a few visualization of the data and say a few words about what you see.
 
 ### Problem Formulation
 
-* Define:
-  * Input / Output
-  * Models
-    * Describe the different models you tried and why.
-  * Loss, Optimizer, other Hyperparameters.
+* Input: CO₂ emissions, water usage, waste, price, brand (encoded), labor index, product type
+* Output:Sustainability Score (continuous, numeric)
+
+Models:
+* LinearRegression – for baseline
+* RandomForestRegressor – handles non-linear patterns and feature importance
+* XGBoostRegressor – boosted trees for better generalization and accuracy
+
+Loss / Optimizer / Hyperparameters:
+* Loss: MSE
+* Grid search and random search used to optimize tree depth, number of estimators, and learning rate
 
 ### Training
 
-* Describe the training:
-  * How you trained: software and hardware.
-  * How did training take.
-  * Training curves (loss vs epoch for test/train).
-  * How did you decide to stop training.
-  * Any difficulties? How did you resolve them?
+* Python 3.10
+* Jupyter Notebook
+* Scikit-learn, XGBoost, matplotlib
 
 ### Performance Comparison
 
@@ -58,59 +70,64 @@ Show a few visualization of the data and say a few words about what you see.
 
 ### Conclusions
 
-* State any conclusions you can infer from your work. Example: LSTM work better than GRU.
+* XGBoost outperformed other models in both accuracy and interpretability
+* Environmental features (CO₂ and water) were the most influential predictors
+* Labor index contributed less to the score than expected
+* Price was moderately correlated with higher sustainability
 
 ### Future Work
 
-* What would be the next thing that you would try.
-* What are some other studies that can be done starting from here.
+* Add more country-level or industry-level features
+* Build a dashboard or recommendation tool to highlight sustainable brands
+* Expand model for real-time use by consumers or sustainable fashion platforms
 
 ## How to reproduce results
 
 * In this section, provide instructions at least one of the following:
-   * Reproduce your results fully, including training.
-   * Apply this package to other data. For example, how to use the model you trained.
-   * Use this package to perform their own study.
-* Also describe what resources to use for this package, if appropirate. For example, point them to Collab and TPUs.
+   * Clone the repo or open in Google Colab
+   * Run preprocess.ipynb to clean and format the dataset
+   * Execute training-models.ipynb to train and save models
+   * Run performance.ipynb for metrics and visualizations
+
 
 ### Overview of files in repository
 
 * Describe the directory structure, if any.
 * List all relavent files and describe their role in the package.
 * An example:
-  * utils.py: various functions that are used in cleaning and visualizing data.
-  * preprocess.ipynb: Takes input data in CSV and writes out data frame after cleanup.
-  * visualization.ipynb: Creates various visualizations of the data.
-  * models.py: Contains functions that build the various models.
-  * training-model-1.ipynb: Trains the first model and saves model during training.
-  * training-model-2.ipynb: Trains the second model and saves model during training.
-  * training-model-3.ipynb: Trains the third model and saves model during training.
-  * performance.ipynb: loads multiple trained models and compares results.
-  * inference.ipynb: loads a trained model and applies it to test data to create kaggle submission.
+  * utils.py: Helper functions for scaling, encoding, splitting
+  * preprocess.ipynb: Cleans and transforms the raw CSV file
+  * visualization.ipynb: Creates EDA charts (histograms, scatterplots, boxplots)
+  * models.py: Defines regression models and tuning functions
+  * training-model-1.ipynb: Linear Regression
+  * training-model-2.ipynb: Random Forest
+  * training-model-3.ipynb: XGBoost
+  * performance.ipynb: Compares model metrics and plots results
+  * final_report.ipynb: Combines analysis for export
 
-* Note that all of these notebooks should contain enough text for someone to understand what is happening.
 
 ### Software Setup
 * List all of the required packages.
-* If not standard, provide or point to instruction for installing the packages.
-* Describe how to install your package.
+* pandas, numpy, scikit-learn, xgboost, matplotlib, seaborn
 
 ### Data
 
-* Point to where they can download the data.
-* Lead them through preprocessing steps, if necessary.
+* Download from Kaggle: The True Cost of Fast Fashion
+* Save the CSV as fast_fashion.csv in your working directory
+* Run preprocess.ipynb to clean and prepare the dataset
 
 ### Training
 
-* Describe how to train the model
+* Run the corresponding training notebooks
+* Models are saved as .pkl files in the /models folder
 
 #### Performance Evaluation
 
-* Describe how to run the performance evaluation.
+* Use performance.ipynb to load models and generate evaluation metrics + plots
 
 
 ## Citations
 
-* Provide any references.
+* Dataset: Banerjee, Sourav. The True Cost of Fast Fashion, Kaggle. https://www.kaggle.com/datasets/iamsouravbanerjee/the-true-cost-of-fast-fashion
 
 
